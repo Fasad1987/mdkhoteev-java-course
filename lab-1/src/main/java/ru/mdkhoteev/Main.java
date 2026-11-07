@@ -1,7 +1,7 @@
 package ru.mdkhoteev;
 
 public class Main {
-    public static main(String[] args) {
+    public static void main(String[] args) {
 
     }
 }
