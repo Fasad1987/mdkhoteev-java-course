@@ -28,3 +28,4 @@ target/
 *.iml
 out/
 **/dependency-reduced-pom.xml
+/lab-1/src/main/resources/origin-spicies.txt

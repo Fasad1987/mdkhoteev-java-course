@@ -22,7 +22,7 @@ public class Main {
 
 
         OriginSpeciesWriter originSpeciesWriter = new OriginSpeciesWriter();
-        Path outputPath = Path.of("origin-spicies.txt");
+        Path outputPath = Path.of("lab-1/src/main/resources/origin-spicies.txt");
         originSpeciesWriter.writeToFile(originToSpecies, outputPath);
     }
 }
