@@ -10,12 +10,14 @@
     <packaging>pom</packaging>
     <modules>
         <module>lab-1</module>
+        <module>lab-2</module>
     </modules>
     <properties>
         <maven.compiler.release>25</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.assembly.plugin.version>3.8.0</maven.assembly.plugin.version>
         <junit.version>6.1.0</junit.version>
+        <postgresql.version>42.7.14</postgresql.version>
     </properties>
 
     <dependencyManagement>
@@ -25,6 +27,12 @@
                 <artifactId>junit-jupiter</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+                <scope>runtime</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
