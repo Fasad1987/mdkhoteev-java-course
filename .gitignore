@@ -29,3 +29,4 @@ target/
 out/
 **/dependency-reduced-pom.xml
 /lab-1/src/main/resources/origin-spicies.txt
+.env
