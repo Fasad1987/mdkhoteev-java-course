@@ -14,6 +14,12 @@ public class HotelEntity {
         this.stars = stars;
     }
 
+    public HotelEntity(Integer id, String name, int stars) {
+        this.id = id;
+        this.name = name;
+        this.stars = stars;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -38,7 +44,7 @@ public class HotelEntity {
     public String toString() {
         return "HotelEntity{" +
                 "id=" + id +
-                ", name='" + name + "'\n" +
+                ", name='" + name + "'" +
                 ", stars=" + stars +
                 '}';
     }
