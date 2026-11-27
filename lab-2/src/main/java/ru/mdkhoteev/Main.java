@@ -1,6 +1,8 @@
 package ru.mdkhoteev;
 
+import ru.mdkhoteev.entity.HotelEntity;
 import ru.mdkhoteev.repository.ConnectionFactory;
+import ru.mdkhoteev.repository.HotelRepositoryJdbc;
 import ru.mdkhoteev.repository.PropertiesService;
 
 import java.sql.Connection;
@@ -28,5 +30,9 @@ public class Main {
         } catch (SQLException e) {
             throw new IllegalStateException("Ошибка подключения к БД", e);
         }
+
+        HotelRepositoryJdbc repository = new HotelRepositoryJdbc(connectionFactory);
+        int id = repository.save(new HotelEntity("Astoria", 5));
+        System.out.println("Сохранён отель: " + repository.findById(id));
     }
 }
