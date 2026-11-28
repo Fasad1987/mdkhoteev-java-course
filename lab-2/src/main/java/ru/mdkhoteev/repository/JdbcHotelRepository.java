@@ -8,11 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelRepositoryJdbc implements HotelRepository {
+public class JdbcHotelRepository implements HotelRepository {
 
     private final ConnectionFactory connectionFactory;
 
-    public HotelRepositoryJdbc(ConnectionFactory connectionFactory) {
+    public JdbcHotelRepository(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
         createTable();
     }
