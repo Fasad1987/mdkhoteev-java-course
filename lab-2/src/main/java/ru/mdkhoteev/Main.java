@@ -2,7 +2,7 @@ package ru.mdkhoteev;
 
 import ru.mdkhoteev.entity.HotelEntity;
 import ru.mdkhoteev.repository.ConnectionFactory;
-import ru.mdkhoteev.repository.HotelRepositoryJdbc;
+import ru.mdkhoteev.repository.JdbcHotelRepository;
 import ru.mdkhoteev.repository.PropertiesService;
 
 import java.sql.Connection;
@@ -32,11 +32,11 @@ public class Main {
             throw new IllegalStateException("Ошибка подключения к БД", e);
         }
 
-        HotelRepositoryJdbc repository = new HotelRepositoryJdbc(connectionFactory);
+        JdbcHotelRepository repository = new JdbcHotelRepository(connectionFactory);
         demonstrate(repository);
     }
 
-    private static void demonstrate(HotelRepositoryJdbc repository) {
+    private static void demonstrate(JdbcHotelRepository repository) {
         int id = repository.save(new HotelEntity("Astoria", 5));
         System.out.println("save -> id = " + id);
 
