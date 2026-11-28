@@ -4,7 +4,10 @@ package ru.mdkhoteev.repository;
 import ru.mdkhoteev.entity.HotelEntity;
 import ru.mdkhoteev.exception.RepositoryException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,6 @@ public class JdbcHotelRepository implements HotelRepository {
 
     public JdbcHotelRepository(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
-        createTable();
     }
 
     @Override
@@ -118,24 +120,6 @@ public class JdbcHotelRepository implements HotelRepository {
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new RepositoryException("Ошибка удаления отеля с id " + id, e);
-        }
-    }
-
-    private void createTable() {
-        String sql = """
-                CREATE TABLE IF NOT EXISTS hotel (
-                    id SERIAL PRIMARY KEY,
-                    name VARCHAR(100) NOT NULL UNIQUE,
-                    stars INT NOT NULL
-                )
-                """;
-        try (
-                Connection connection = connectionFactory.getConnection();
-                Statement statement = connection.createStatement()
-        ) {
-            statement.execute(sql);
-        } catch (SQLException e) {
-            throw new RepositoryException("Ошибка создания таблицы hotel", e);
         }
     }
 

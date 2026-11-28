@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS hotel
+(
+    id    SERIAL PRIMARY KEY,
+    name  VARCHAR(100) NOT NULL UNIQUE,
+    stars INT          NOT NULL
+);

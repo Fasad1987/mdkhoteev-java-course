@@ -1,21 +1,36 @@
 package ru.mdkhoteev.repository;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    private final String url;
-    private final String user;
-    private final String password;
+    private final HikariDataSource dataSource;
 
-    public ConnectionFactory(String url, String user, String password) {
-        this.url = url;
-        this.user = user;
-        this.password = password;
+    public ConnectionFactory(String url, String user, String password, String schema) {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl(url);
+        config.setUsername(user);
+        config.setPassword(password);
+        config.setDriverClassName("org.postgresql.Driver");
+        config.setSchema(schema);
+
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(5);
+        config.setConnectionTimeout(30000);
+        config.setIdleTimeout(300000);
+        config.setMaxLifetime(1800000);
+
+        dataSource = new HikariDataSource(config);
     }
 
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, user, password);
+        return dataSource.getConnection();
+    }
+
+    public void close() {
+        dataSource.close();
     }
 }

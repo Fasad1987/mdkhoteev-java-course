@@ -2,11 +2,10 @@ package ru.mdkhoteev;
 
 import ru.mdkhoteev.entity.HotelEntity;
 import ru.mdkhoteev.repository.ConnectionFactory;
+import ru.mdkhoteev.repository.DatabaseMigrator;
 import ru.mdkhoteev.repository.JdbcHotelRepository;
 import ru.mdkhoteev.repository.PropertiesService;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 public class Main {
@@ -18,22 +17,21 @@ public class Main {
             throw new IllegalStateException("Env DATABASE_PASSWORD не задана");
         }
 
-        ConnectionFactory connectionFactory = new ConnectionFactory(
-                properties.get("db.url"),
-                properties.get("db.user"),
-                password
-        );
+        String url = properties.get("db.url");
+        String user = properties.get("db.user");
+        String schema = properties.get("db.schema");
 
-        try (Connection connection = connectionFactory.getConnection()) {
-            if (connection.isValid(5)) {
-                System.out.println("Подключение к БД успешно");
-            }
-        } catch (SQLException e) {
-            throw new IllegalStateException("Ошибка подключения к БД", e);
+        DatabaseMigrator databaseMigrator = new DatabaseMigrator(url, user, password, schema);
+        databaseMigrator.runMigrations();
+
+        ConnectionFactory connectionFactory = new ConnectionFactory(url, user, password, schema);
+
+        try {
+            JdbcHotelRepository repository = new JdbcHotelRepository(connectionFactory);
+            demonstrate(repository);
+        } finally {
+            connectionFactory.close();
         }
-
-        JdbcHotelRepository repository = new JdbcHotelRepository(connectionFactory);
-        demonstrate(repository);
     }
 
     private static void demonstrate(JdbcHotelRepository repository) {
